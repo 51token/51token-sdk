@@ -1,6 +1,6 @@
 # 51token-sdk
 
-通过引用 51token.js 可以使用 _51token对象来进行调用。
+通过引用 51token.js 可以使用 _51token对象来进行调用。
 
 异步方法可以传入callback，不传入的话返回值是Promise。异步方法的返回值是指回调函数的输入。
 
