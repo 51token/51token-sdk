@@ -4,11 +4,11 @@
 
 异步方法可以传入callback，不传入的话返回值是Promise。异步方法的返回值是指回调函数的输入。
 
-## COMMON
+## Common
 
 通用方法
 
-### _51token.isConnected: 
+### _51token.isConnected()
     说明：检查是否在51token中打开该网页
     参数：无
     方法类型： 同步
@@ -18,7 +18,7 @@
         false 代表接入51token失败
 
 
-### _51token.getCurrentWallet:
+### _51token.getCurrentWallet()
     说明：获取当前用户
     参数：无
     方法类型： 同步
@@ -33,7 +33,7 @@
             }
         }
 
-### _51token.getAllWallets:
+### _51token.getAllWallets(callback)
     说明：获取所有钱包
     方法类型： 异步
     参数：
@@ -61,7 +61,7 @@
 
 ## eos
 
-###  _51token.eos.chooseWallet:
+###  _51token.eos.chooseWallet(callback)
     说明：切换钱包
     方法类型： 异步
     参数：
@@ -76,7 +76,7 @@
             }
         }
 
-### _51token.eos.generateKeyPair:
+### _51token.eos.generateKeyPair(callback)
     说明：生成公私钥
     方法类型： 异步
     参数：
@@ -90,11 +90,11 @@
                 "PrivateKey":":"私钥"
             }
 
-### _51token.eos.transaction:
+### _51token.eos.transaction(data,callback)
 	说明：发起交易
     方法类型： 异步
     参数：
-        jsonStr: JSONString(交易报文),
+        data: Object(交易报文),
         callback: 回调函数
     返回值：
         Object:
@@ -132,14 +132,14 @@
 
 使用方法同eos
 
-- _51token.enu.chooseWallet
-- _51token.enu.generateKeyPair
-- _51token.enu.transaction
+- _51token.enu.chooseWallet(callback)
+- _51token.enu.generateKeyPair(callback)
+- _51token.enu.transaction(data,callback)
 
 ## fibos
 
 使用方法同eos
 
-- _51token.fibos.chooseWallet
-- _51token.fibos.generateKeyPair
-- _51token.fibos.transaction
+- _51token.fibos.chooseWallet(callback)
+- _51token.fibos.generateKeyPair(callback)
+- _51token.fibos.transaction(data,callback)
