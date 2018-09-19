@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ENU DEMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://upload.youlingvc.com/bisaleapp/app/51token.min.js"></script>
+    <style>
+        button {
+            width: 200px;
+            height: 40px;
+            display: block;
+            margin: 30px auto;
+            background: #999;
+            border: none;
+            -webkit-appearance: none;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="test">测试是否接入成功</button>
+
+    <button class="sysPlatform">获取设备</button>
+
+    <button class="getCurrentWallet">获取当前钱包</button>
+
+    <button class="getAllWallets">获取所有钱包</button>
+
+    <button class="chooseWallet">切换钱包</button>
+
+    <button class="generateKeyPair">获取公私钥</button>
+
+    <button class="transaction">转账ENU</button>
+</body>
+
+<script>
+    $(".test").on("click", function() {
+        var isConnected = _51token.isConnected();
+        if (isConnected) {
+            alert("接入51token成功")
+        }
+    });
+    $(".sysPlatform").on("click", function() {
+        var result = _51token.sysPlatform();
+        alert(JSON.stringify(result));
+    });
+    $(".getCurrentWallet").on("click", function() {
+        var result = _51token.getCurrentWallet();
+        alert(JSON.stringify(result));
+    });
+
+    $(".getAllWallets").on("click", function() {
+        _51token.getAllWallets().then(res => {
+            alert(JSON.stringify(res))
+        });
+    });
+    $(".chooseWallet").on("click", function() {
+        _51token.enu.chooseWallet().then(res => {
+            alert(JSON.stringify(res))
+        });
+    });
+    $(".generateKeyPair").on("click", function() {
+        _51token.enu.generateKeyPair().then(res => {
+            alert(JSON.stringify(res))
+        });
+    })
+    $(".transaction").on("click", function() {
+
+        let jsonObj = {
+            "actions": [{
+                "account": "enu.token",
+                "name": "transfer",
+                "authorization": [{
+                    "actor": "51tokenhappy",
+                    "permission": "active"
+                }],
+                "data": {
+                    "from": "51tokenhappy",
+                    "to": "sunshine1234",
+                    "quantity": "1.0000 ENU",
+                    "memo": ""
+                }
+            }]
+        };
+        _51token.enu.transaction(jsonObj).then(res => {
+            var data = res;
+            if (data.result) {
+                alert("转账成功");
+            } else {
+                alert(JSON.stringify(data));
+            }
+        });
+    })
+</script>
+
+</html>
