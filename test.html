@@ -27,8 +27,6 @@
 
     <button class="test">测试是否接入成功</button>
 
-    <button class="sysPlatform">获取设备</button>
-
     <button class="getCurrentWallet">获取当前钱包</button>
 
     <button class="getAllWallets">获取所有钱包</button>
@@ -46,10 +44,6 @@
         if (isConnected) {
             alert("接入51token成功")
         }
-    });
-    $(".sysPlatform").on("click", function() {
-        var result = _51token.sysPlatform();
-        alert(JSON.stringify(result));
     });
     $(".getCurrentWallet").on("click", function() {
         var result = _51token.getCurrentWallet();
