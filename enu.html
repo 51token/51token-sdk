@@ -28,8 +28,6 @@
 
     <button class="getCurrentWallet">获取当前钱包</button>
 
-    <button class="getAllWallets">获取所有钱包</button>
-
     <button class="chooseWallet">切换钱包</button>
 
     <button class="transaction">转账</button>
@@ -44,18 +42,14 @@
     });
 
     $(".getCurrentWallet").on("click", function () {
-        var result = token51.wallet.currentWallet;
-        alert(JSON.stringify(result));
-    });
-
-    $(".getAllWallets").on("click", function () {
         token51.getIdentity().then(res => {
             alert(JSON.stringify(res))
         });
     });
 
+
     $(".chooseWallet").on("click", function () {
-        token51.forgetIdentity.then(res => {
+        token51.forgetIdentity().then(res => {
             alert(JSON.stringify(res))
         });
     });
@@ -63,29 +57,35 @@
 
     $(".transaction").on("click", function () {
 
-        let jsonObj = {
-            "actions": [{
-                "account": "enu.token",
-                "name": "transfer",
-                "authorization": [{
-                    "actor": "51tokenhappy",
-                    "permission": "active"
-                }],
-                "data": {
-                    "from": "51tokenhappy",
-                    "to": "sunshine1234",
-                    "quantity": "1.0000 ENU",
-                    "memo": ""
+        token51.getIdentity().then(res => {
+            let account = res.name;
+            let permission = res.authority;
+
+            let jsonObj = {
+                "actions": [{
+                    "account": "enu.token",
+                    "name": "transfer",
+                    "authorization": [{
+                        "actor": account,
+                        "permission": permission
+                    }],
+                    "data": {
+                        "from": account,
+                        "to": "51tokentoken",
+                        "quantity": "0.0001 ENU",
+                        "memo": "test"
+                    }
+                }]
+            };
+            token51.enu.transaction(jsonObj).then(res => {
+                var data = res;
+                if (data.result) {
+                    alert("转账成功");
+                } else {
+                    alert(JSON.stringify(data));
                 }
-            }]
-        };
-        token51.enu.transaction(jsonObj).then(res => {
-            var data = res;
-            if (data.result) {
-                alert("转账成功");
-            } else {
-                alert(JSON.stringify(data));
-            }
+            });
+
         });
     })
 </script>
