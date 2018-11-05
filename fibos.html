@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ENU DEMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        button {
+            width: 200px;
+            height: 40px;
+            display: block;
+            margin: 30px auto;
+            background: #999;
+            border: none;
+            -webkit-appearance: none;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="test">测试是否接入成功</button>
+
+    <button class="getCurrentWallet">获取当前钱包</button>
+
+    <button class="chooseWallet">切换钱包</button>
+
+    <button class="transaction">转账</button>
+</body>
+
+<script>
+    $(".test").on("click", function () {
+        var isConnected = token51.isConnected();
+        if (isConnected) {
+            alert("接入51token成功")
+        }
+    });
+
+    $(".getCurrentWallet").on("click", function () {
+        token51.getIdentity().then(res => {
+            alert(JSON.stringify(res))
+        });
+    });
+
+
+    $(".chooseWallet").on("click", function () {
+        token51.forgetIdentity().then(res => {
+            alert(JSON.stringify(res))
+        });
+    });
+
+
+    $(".transaction").on("click", function () {
+
+        token51.getIdentity().then(res => {
+            let account = res.accounts[0].name;
+            let permission = res.accounts[0].authority;
+
+            let jsonObj = {
+                "actions": [{
+                    "account": "eosio.token",
+                    "name": "transfer",
+                    "authorization": [{
+                        "actor": account,
+                        "permission": permission
+                    }],
+                    "data": {
+                        "from": account,
+                        "to": "51tokentoken",
+                        "quantity": "0.0001 FO",
+                        "memo": "test"
+                    }
+                }]
+            };
+            token51.pushActions(jsonObj).then(res => {
+                var data = res;
+                if (data.result) {
+                    alert("转账成功");
+                } else {
+                    alert(JSON.stringify(data));
+                }
+            });
+
+        });
+    })
+</script>
+
+</html>
