@@ -1,14 +1,9 @@
 # 51token-sdk
 
-通过引用 51token.js 可以使用 _51token对象来进行调用。
+在51token app 中打开的 web网页可以直接使用注入的对象发起交易,
+进去dapp时，需要指定某个链
 
-异步方法可以传入callback，不传入的话返回值是Promise。异步方法的返回值是指回调函数的输入。
-
-## Common
-
-通用方法
-
-### _51token.isConnected()
+## token51.isConnected()
     说明：检查是否在51token中打开该网页
     参数：无
     方法类型： 同步
@@ -18,93 +13,55 @@
         false 代表接入51token失败
 
 
-### _51token.getCurrentWallet()
+## token51.getIdentity()
     说明：获取当前用户
     参数：无
-    方法类型： 同步
-    返回值：
-    （1）null 未导入任何钱包
-    （2）Object
-        eg:{
-            "result": true/false,
-            "data":{
-                "name":"账户名",
-                "blockchain":"EOS/ENU/FO"
-            }
-        }
-
-### _51token.getAllWallets(callback)
-    说明：获取所有钱包
     方法类型： 异步
-    参数：
-        callback: 回调函数
+    参数：无
     返回值：
-        Object:
-        eg:[
-            {
-                "name":"钱包名",
-                "blockchain":"EOS/ENU/FO"
-            },
-            {
-                "name":"钱包名",
-                "blockchain":"EOS/ENU/FO"
-            },
-            {
-                "name":"钱包名",
-                "blockchain":"EOS/ENU/FO"
-            },
-            {
-                "name":"钱包名",
-                "blockchain":"EOS/ENU/FO"
-            }
-        ]
+```json    
+{
+    "accounts":[
+        {
+            "authority":"active",
+            "name":"xxxxxxxxxxxx",
+            "blockchain":"eos"
+        }
+    ]
+}
+```
 
-## eos
-
-###  _51token.eos.chooseWallet(callback)
+##  token51.forgetIdentity()
     说明：切换钱包
     方法类型： 异步
-    参数：
-        callback: 回调函数
-    返回值：
-        Object
-        eg:{
-            "result": true/false,
-            "data":{
-                "name":"账户名",
-                "blockchain":"EOS/ENU/FO"
-            }
+    参数：无
+    返回值：切换后的钱包信息
+```json    
+{
+    "accounts":[
+        {
+            "authority":"active",
+            "name":"xxxxxxxxxxxx",
+            "blockchain":"eos"
         }
+    ]
+}
+```
 
-### _51token.eos.generateKeyPair(callback)
-    说明：生成公私钥
-    方法类型： 异步
-    参数：
-        callback: 回调函数
-    返回值：
-        Object:
-        eg:{
-            "result": true/false,
-            "data":{
-                "PublicKey":"公钥",
-                "PrivateKey":":"私钥"
-            }
-
-### _51token.eos.transaction(data,callback)
+## token51.pushActions(data)
 	说明：发起交易
     方法类型： 异步
     参数：
-        data: Object(交易报文),
-        callback: 回调函数
+        data: Object(交易报文)
     返回值：
         Object:
-        eg:{
+        {
             "result": true/false,
             "data":"成功返回信息",
             "error":"错误返回信息"
         }
 
-交易报文示例
+输入交易报文示例
 ```json
 {
     "actions": [
@@ -128,18 +85,12 @@
 }
 ```
 
-## enu
+# 测试
 
-使用方法同eos
+可以在51token中直接打开如下页面进行测试：
 
-- _51token.enu.chooseWallet(callback)
-- _51token.enu.generateKeyPair(callback)
-- _51token.enu.transaction(data,callback)
+https://51token.github.io/51token-sdk/eos
 
-## fibos
+https://51token.github.io/51token-sdk/enu
 
-使用方法同eos
-
-- _51token.fibos.chooseWallet(callback)
-- _51token.fibos.generateKeyPair(callback)
-- _51token.fibos.transaction(data,callback)
+https://51token.github.io/51token-sdk/fibos
