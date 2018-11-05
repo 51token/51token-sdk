@@ -58,8 +58,8 @@
     $(".transaction").on("click", function () {
 
         token51.getIdentity().then(res => {
-            let account = res.name;
-            let permission = res.authority;
+            let account = res.accounts[0].name;
+            let permission = res.accounts[0].authority;
 
             let jsonObj = {
                 "actions": [{
