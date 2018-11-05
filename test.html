@@ -8,7 +8,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://upload.youlingvc.com/bisaleapp/app/51token.min.js"></script>
     <style>
         button {
             width: 200px;
@@ -33,39 +32,36 @@
 
     <button class="chooseWallet">切换钱包</button>
 
-    <button class="generateKeyPair">获取公私钥</button>
-
-    <button class="transaction">转账ENU</button>
+    <button class="transaction">转账</button>
 </body>
 
 <script>
-    $(".test").on("click", function() {
-        var isConnected = _51token.isConnected();
+    $(".test").on("click", function () {
+        var isConnected = token51.isConnected();
         if (isConnected) {
             alert("接入51token成功")
         }
     });
-    $(".getCurrentWallet").on("click", function() {
-        var result = _51token.getCurrentWallet();
+
+    $(".getCurrentWallet").on("click", function () {
+        var result = token51.wallet.currentWallet;
         alert(JSON.stringify(result));
     });
 
-    $(".getAllWallets").on("click", function() {
-        _51token.getAllWallets().then(res => {
+    $(".getAllWallets").on("click", function () {
+        token51.getIdentity().then(res => {
             alert(JSON.stringify(res))
         });
     });
-    $(".chooseWallet").on("click", function() {
-        _51token.enu.chooseWallet().then(res => {
+
+    $(".chooseWallet").on("click", function () {
+        token51.forgetIdentity.then(res => {
             alert(JSON.stringify(res))
         });
     });
-    $(".generateKeyPair").on("click", function() {
-        _51token.enu.generateKeyPair().then(res => {
-            alert(JSON.stringify(res))
-        });
-    })
-    $(".transaction").on("click", function() {
+
+
+    $(".transaction").on("click", function () {
 
         let jsonObj = {
             "actions": [{
@@ -83,7 +79,7 @@
                 }
             }]
         };
-        _51token.enu.transaction(jsonObj).then(res => {
+        token51.enu.transaction(jsonObj).then(res => {
             var data = res;
             if (data.result) {
                 alert("转账成功");
