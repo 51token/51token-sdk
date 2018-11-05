@@ -77,7 +77,7 @@
                     }
                 }]
             };
-            token51.enu.transaction(jsonObj).then(res => {
+            token51.pushActions(jsonObj).then(res => {
                 var data = res;
                 if (data.result) {
                     alert("转账成功");
