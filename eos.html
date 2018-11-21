@@ -31,9 +31,16 @@
     <button class="chooseWallet">切换钱包</button>
 
     <button class="transaction">转账</button>
+
+    <button class="UA">显示UserAgent</button>
+
 </body>
 
 <script>
+    $(".UA").on("click", function () {
+        alert(navigator.userAgent);
+    });
+
     $(".test").on("click", function () {
         var isConnected = token51.isConnected();
         if (isConnected) {
@@ -88,6 +95,8 @@
 
         });
     })
+
+
 </script>
 
 </html>
