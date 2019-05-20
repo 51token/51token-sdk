@@ -42,21 +42,21 @@
     });
 
     $(".test").on("click", function () {
-        var isConnected = token51.isConnected();
+        var isConnected = scatter.isConnected();
         if (isConnected) {
             alert("接入51token成功")
         }
     });
 
     $(".getCurrentWallet").on("click", function () {
-        token51.getIdentity().then(res => {
+        scatter.getIdentity().then(res => {
             alert(JSON.stringify(res))
         });
     });
 
 
     $(".chooseWallet").on("click", function () {
-        token51.forgetIdentity().then(res => {
+        scatter.forgetIdentity().then(res => {
             alert(JSON.stringify(res))
         });
     });
@@ -64,7 +64,7 @@
 
     $(".transaction").on("click", function () {
 
-        token51.getIdentity().then(res => {
+        scatter.getIdentity().then(res => {
             let account = res.accounts[0].name;
             let permission = res.accounts[0].authority;
 
@@ -84,7 +84,7 @@
                     }
                 }]
             };
-            token51.pushActions(jsonObj).then(res => {
+            scatter.pushActions(jsonObj).then(res => {
                 var data = res;
                 if (data.result) {
                     alert("转账成功");
